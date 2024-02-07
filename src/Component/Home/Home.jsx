@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 const Home = () => {
   const handleAddMango = (event) => {
     event.preventDefault();
@@ -16,6 +18,10 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.acknowledged) {
+          toast.success("Mango successfully added");
+          form.reset();
+        }
       });
   };
 
