@@ -6,6 +6,17 @@ const Home = () => {
     const photo = form.photo.value;
     const getMango = { name, photo };
     console.log(getMango);
+    fetch("http://localhost:3000/mangoes", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(getMango),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
