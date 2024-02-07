@@ -1,15 +1,34 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useLoaderData } from "react-router-dom";
 
 const Mangoes = () => {
   const loaderMangos = useLoaderData();
-  console.log(loaderMangos);
+  const [mangos, setMangos] = useState(loaderMangos);
+  //   console.log(loaderMangos);
+
+  const handleDelete = (idx, name) => {
+    // console.log(idx);
+    fetch(`http://localhost:3000/mangoes/${idx}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount > 0) {
+          const filterDeleted = mangos.filter((solo) => solo._id !== idx);
+          setMangos(filterDeleted);
+          toast.success(`${name} Deleted successfully`);
+        }
+      });
+  };
 
   return (
     <div>
       <h1 className="text-center text-xl font-semibold">
-        Total Mangoes {loaderMangos.length}
-        <div className="max-w-7xl mx-auto gap-3 grid grid-cols-1 md:grid-cols-3 mt-3">
-          {loaderMangos.map((mango) => (
+        Total Mangoes {mangos.length}
+        <div className="max-w-7xl mx-auto gap-3 grid grid-cols-1 md:grid-cols-4 mt-3">
+          {mangos.map((mango) => (
             <div
               key={mango._id}
               className="border border-blue-400 rounded-md flex flex-col p-2"
@@ -27,7 +46,12 @@ const Mangoes = () => {
                 <Link to={`/update/${mango._id}`}>
                   <button className="btn btn-success text-white">Update</button>
                 </Link>
-                <button className="btn btn-error text-white">X</button>
+                <button
+                  onClick={() => handleDelete(mango._id, mango.name)}
+                  className="btn btn-error text-white"
+                >
+                  X
+                </button>
               </div>
             </div>
           ))}
