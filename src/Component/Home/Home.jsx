@@ -31,7 +31,7 @@ const Home = () => {
       <form onSubmit={handleAddMango}>
         <input
           type="text"
-          className="border-2 mb-1 rounded-md py-2 px-3 outline-blue-300"
+          className="w-1/5 border-2 mb-1 rounded-md py-2 px-3 outline-blue-400"
           placeholder="Mango type"
           required
           name="name"
@@ -40,7 +40,7 @@ const Home = () => {
         <br />
         <input
           type="text"
-          className="border-2 mb-1 rounded-md py-2 px-3 outline-blue-300"
+          className="w-1/5 border-2 mb-1 rounded-md py-2 px-3 outline-blue-400"
           placeholder="Mango photo URL"
           required
           name="photo"
